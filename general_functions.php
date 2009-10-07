@@ -40,7 +40,7 @@
 			. 'at <a href="' . $url . '">GitHub</a><br/>';
 		echo 'Author: Aleksi Räsänen '
 			. '<a href="mailto:aleksi.rasanen@runosydan.net">'
-			. 'aleksi.rasanen@runosydan.net</a><br/>';
+			. '&lt;aleksi.rasanen@runosydan.net&gt;</a> 2009<br/>';
 		echo '</div>';
 		echo '</body>';
 		echo '</html>';

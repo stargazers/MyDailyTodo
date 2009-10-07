@@ -26,6 +26,11 @@
 		if(! isset( $_POST['username'] ) )
 			return false;
 
+		// Remove dots and / characters so the user cannot try 
+		// to set username to ../../pwnd or similar.
+		$_POST['username'] = preg_replace( '/\./', '', $_POST['username'] );
+		$_POST['username'] = preg_replace( '/\//', '', $_POST['username'] );
+
 		// Is username empty?
 		if( isset( $_POST['username'] ) && empty( $_POST['username'] ) )
 		{
@@ -47,6 +52,16 @@
 			if( $_POST['password'] != $_POST['password_again'] )
 			{
 				$_SESSION['errorMsg'] = 'Passwords did not match.';
+				return false;
+			}
+		}
+
+		// Check that the 'users/' directory exist.
+		if(! file_exists( 'users/' ) )
+		{
+			if(! mkdir( 'users/', 0700 ) )
+			{
+				$_SESSION['errorMsg'] = 'Can\'t create folder users/';
 				return false;
 			}
 		}

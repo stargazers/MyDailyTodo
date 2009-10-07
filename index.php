@@ -112,6 +112,11 @@
 		$tmp = explode( '-', $day );
 		$tmp = $tmp[2] . '.' . $tmp[1] . '.' . $tmp[0];
 
+		// Store next and previous days to variables so we can
+		// create links for next and previous day.
+		$next = date( 'Y-m-d', strtotime( "+1 day", strtotime( $day ) ) );
+		$prev = date( 'Y-m-d', strtotime( "-1 day", strtotime( $day ) ) );
+
 		echo '<div id="ownpage">';
 		echo '<h2>Tasks for day ' . $tmp . '</h1>';
 
@@ -121,10 +126,15 @@
 
 		echo '<hr>';
 
-		if( $day == date( 'Y-m-d' ) )
+		echo '<a href="index.php?day=' . $prev . '">&lt;&lt; Previous day</a>';
+
+		// We can edit only tasks what will be today or in the future.
+		// Statuses can still be changed.
+		if( strtotime( $day ) >= strtotime( date( 'Y-m-d' ) ) )
 			echo '<a href="edit.php">Modify tasks</a>';
 
 		echo '<a href="logout.php">Logout</a>';
+		echo '<a href="index.php?day=' . $next . '">Next day &gt;&gt;</a>';
 		echo '</div>';
 	}
 
