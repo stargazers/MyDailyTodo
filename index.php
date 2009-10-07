@@ -145,8 +145,7 @@
 		echo '</tr>';
 		echo '<tr>';
 		echo '<td colspan="2">';
-		echo '<input type="submit" value="Login"> or ';
-		echo '<a href="register.php">Register</a>';
+		echo '<input type="submit" value="Login"> ';
 		echo '</td>';
 		echo '</tr>';
 		echo '<tr>';
@@ -154,6 +153,7 @@
 		echo '</tr>';
 		echo '</table>';
 		echo '</form>';
+		echo '<a href="register.php">Register</a>';
 		echo '</div>';
 	}
 

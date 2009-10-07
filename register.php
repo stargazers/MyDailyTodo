@@ -26,6 +26,20 @@
 		if(! isset( $_POST['username'] ) )
 			return false;
 
+		// Is username empty?
+		if( isset( $_POST['username'] ) && empty( $_POST['username'] ) )
+		{
+			$_SESSION['errorMsg'] = 'Username is not set.';
+			return false;
+		}
+
+		// If users exists
+		if( file_exists( 'users/' . $_POST['username'] . '.txt' ) )
+		{
+			$_SESSION['errorMsg'] = 'Username is already used.';
+			return false;
+		}
+
 		// Are there two different passwords?
 		if( isset( $_POST['password'] ) 
 			&& isset( $_POST['password_again'] ) )
@@ -33,22 +47,8 @@
 			if( $_POST['password'] != $_POST['password_again'] )
 			{
 				$_SESSION['errorMsg'] = 'Passwords did not match.';
-				return;
+				return false;
 			}
-		}
-
-		// Is username empty?
-		if( isset( $_POST['username'] ) && empty( $_POST['username'] ) )
-		{
-			$_SESSION['errorMsg'] = 'Username is not set.';
-			return;
-		}
-
-		// If users exists
-		if( file_exists( 'users/' . $_POST['username'] . '.txt' ) )
-		{
-			$_SESSION['errorMsg'] = 'Username is already used.';
-			return;
 		}
 
 		$fh = @fopen( 'users/' . $_POST['username'] . '.txt', 'w' );
@@ -56,14 +56,16 @@
 		if(! $fh )
 		{
 			$_SESSION['errorMsg'] = 'Permission denied.';
-			return;
+			return false;
 		}
 
 		fwrite( $fh, 'password=' . sha1( $_POST['password'] ) . "\n" );
 		fclose( $fh );
 
-		$_SESSION['errorMsg'] = 'User is now registered!';
-		header( 'Location: index.php' );
+		$_SESSION['errorMsg'] = 'User ' . $_POST['username'] 
+			. ' is now registered!';
+
+		return true;
 	}
 
 	function create_register_form()
@@ -96,10 +98,24 @@
 
 	function main()
 	{
-		check_post_values();
 		create_html_start();
-		show_error_msg();
-		create_register_form();
+
+		// If check_post_values returns true, then new
+		// user is succesfully created (or at least it should be...)
+		// Note that show_error_msg shows message where is
+		// message that user is registered succesfully!
+		if( check_post_values() )
+		{
+			show_error_msg();
+			echo '<br />';
+			echo '<a href="index.php">Back to main page</a>';
+		}
+		else
+		{
+			show_error_msg();
+			create_register_form();
+		}
+
 		create_html_end();
 	}
 
