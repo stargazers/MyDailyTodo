@@ -1,4 +1,5 @@
 <?php
+
 	/*
 	My Daily Todo
 	Copyright (C) 2009 Aleksi Räsänen <aleksi.rasanen@runosydan.net>
