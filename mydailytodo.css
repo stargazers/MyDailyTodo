@@ -1,0 +1,132 @@
+body
+{
+	background: white;
+	text-align: center;
+}
+
+input[type=submit]
+{
+	background-color: white;
+	border: 1px solid black;
+	margin-top: 10px;
+}
+
+#login, #register
+{
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 20px;
+}
+
+#login table, #register table
+{
+	width: 100%;
+	text-align: center;
+}
+
+#login input[type=text], #login input[type=password]
+{
+	background-color: gray;
+	color: white;
+}
+
+#login h2:first-letter
+{
+	font-size: 150%;
+}
+
+#error
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	padding: 5px;
+	width: 300px;
+}
+
+
+#ownpage a:link, #ownpage a:visited
+{
+	color: #000fcc;
+	text-decoration: none;
+	padding-left: 30px;
+}
+
+#ownpage a:hover
+{
+	text-decoration: underline;
+	font-style: italic;
+}
+
+a:link, a:visited
+{
+	color: #000fcc;
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;
+	font-style: italic;
+}
+
+#ownpage hr
+{
+	width: 50%;
+}
+
+#top_banner 
+{
+	width: 60%;
+	border-bottom: 2px solid black;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#top_banner h2
+{
+	font-variant: small-caps;
+}
+
+#top_banner h2:first-letter
+{
+	font-size: 180%;
+}
+
+#edit
+{
+	width: 100%;
+	text-align: center;
+}
+
+#edit table
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#edit input[type=text]
+{
+	width: 250px;
+}
+
+#tasks
+{
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+#footer
+{
+	width: 80%;
+	border-top: 2px solid black;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	padding-top: 20px;
+	font-size: 70%;
+}
