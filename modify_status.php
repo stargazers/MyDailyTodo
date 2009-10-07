@@ -20,9 +20,16 @@
 
 	session_start();
 
+	// Be sure that there is at least some value
+	// in variable $day...
+	if( isset( $_GET['day'] ) )
+		$day = $_GET['day'];
+	else
+		$day = date( 'Y-m-d' );
+
 	// User daily TODO-file.
 	$todo_file = 'users/' . $_SESSION['username'] . '/'
-		. date( 'Y-m-d' ) . '.txt';
+		. $day . '.txt';
 
 	// Check that file exists (as it should!) and read it to array.
 	if( file_exists( $todo_file ) )
@@ -68,5 +75,5 @@
 
 	// Close the file and return to own page.
 	@fclose( $fh );
-	header( 'Location: index.php' );
+	header( 'Location: index.php?day=' . $day );
 ?>

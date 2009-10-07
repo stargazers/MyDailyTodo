@@ -34,10 +34,12 @@
 		}
 	}
 
-	function create_inputs_from_file()
+	function create_inputs_from_file( $todo_file )
 	{
+		/*
 		$todo_file = 'users/' . $_SESSION['username'] . '/'
 			. date( 'Y-m-d' ) . '.txt';
+		*/
 
 		$tmp = file( $todo_file );
 		$max = 4;
@@ -64,7 +66,7 @@
 			. $day . '.txt';
 
 		echo '<div id="edit">';
-		echo '<form action="edit.php" method="post">';
+		echo '<form action="edit.php?day=' . $day . '" method="post">';
 	
 		echo '<table>';
 
@@ -119,8 +121,15 @@
 		if(! check_user_folder() )
 			return false;
 
+		// Date where we write these modifications.
+		if(! isset( $_GET['day'] ) )
+			$day = date( 'Y-m-d' );
+		else
+			$day = $_GET['day'];
+
+		// File where we save modifications.
 		$path = 'users/' . $_SESSION['username'];
-		$todo_file = $path . '/' .  date( 'Y-m-d' ) . '.txt';
+		$todo_file = $path . '/' . $day . '.txt';
 
 		// If file already exists, then read the data to array.
 		// This is needed if we want to keep status still saved
@@ -155,7 +164,7 @@
 		}
 
 		fclose( $fh );
-		header( 'Location: index.php' );
+		header( 'Location: index.php?day=' . $day );
 	}
 
 	function main()

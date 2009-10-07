@@ -93,11 +93,20 @@
 			// Index 0 is task name, index 1 is task status
 			$tmp = explode( '|', $row );
 
-			echo '<tr>';
-			echo '<td width="90%">' . $tmp[0] . '</td>';
-			echo '<td><a href="modify_status.php?id=' . $i 
-				. '">' . $tmp[1] . '</a></td>';
-			echo '</tr>';
+			// If task is incomplete
+			if( $tmp[1] == 'NOT' )
+				$tmp[1] = 'Incomplete';
+
+			// Do not show empty items in list.
+			if( $tmp[0] != '' )
+			{
+				echo '<tr>';
+				echo '<td width="90%" valign="top">' . $tmp[0] . '</td>';
+				echo '<td align="right" valign="top">'
+					. '<a href="modify_status.php?id=' . $i 
+					. '&day=' . $day . '">' . $tmp[1] . '</a></td>';
+				echo '</tr>';
+			}
 		}
 
 		echo '</table>';
@@ -126,12 +135,13 @@
 
 		echo '<hr>';
 
-		echo '<a href="index.php?day=' . $prev . '">&lt;&lt; Previous day</a>';
+		echo '<a href="index.php?day=' . $prev 
+			. '">&lt;&lt; Previous day</a>';
 
 		// We can edit only tasks what will be today or in the future.
 		// Statuses can still be changed.
 		if( strtotime( $day ) >= strtotime( date( 'Y-m-d' ) ) )
-			echo '<a href="edit.php">Modify tasks</a>';
+			echo '<a href="edit.php?day=' . $day . '">Modify tasks</a>';
 
 		echo '<a href="logout.php">Logout</a>';
 		echo '<a href="index.php?day=' . $next . '">Next day &gt;&gt;</a>';
