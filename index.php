@@ -86,6 +86,7 @@
 		echo '<table>';
 
 		$i = 0;
+		$skipped_values = 0;
 		foreach( $data as $row )
 		{
 			$i++;
@@ -107,10 +108,20 @@
 					. '&day=' . $day . '">' . $tmp[1] . '</a></td>';
 				echo '</tr>';
 			}
+			else
+			{
+				$skipped_values++;
+			}
 		}
 
 		echo '</table>';
 		echo '</div>';
+
+		// If we have skipped all values (because they were empty values)
+		// then we must return false so there will be correct text to
+		// inform user that there is no tasks at all.
+		if( $skipped_values == 3 )
+			return false;
 
 		return true;
 	}
