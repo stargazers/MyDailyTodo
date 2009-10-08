@@ -160,6 +160,11 @@
 				$row = explode( '|', $old_data[$i-1] );
 				$status = $row[1];
 			}
+			
+			// Do not allow user to add pipe character!
+			$_POST['todo' . $i] = str_replace( '|', '', 
+				$_POST['todo' . $i] );
+
 			fwrite( $fh, $_POST['todo' . $i] . '|' . $status . "\n" );
 		}
 

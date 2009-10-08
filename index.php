@@ -154,8 +154,10 @@
 		if( strtotime( $day ) >= strtotime( date( 'Y-m-d' ) ) )
 			echo '<a href="edit.php?day=' . $day . '">Modify tasks</a>';
 
-		echo '<a href="logout.php">Logout</a>';
+		echo '<a href="future.php?day=' . $day . '">Long term todos</a>';
 		echo '<a href="index.php?day=' . $next . '">Next day &gt;&gt;</a>';
+		echo '<br /><br />';
+		echo '<a href="logout.php">Logout</a>';
 		echo '</div>';
 	}
 

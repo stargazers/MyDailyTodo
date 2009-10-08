@@ -65,14 +65,14 @@ input[type=submit]
 }
 
 
-#ownpage a:link, #ownpage a:visited
+#ownpage a:link, #ownpage a:visited, #future a:link, #future a:visited
 {
 	color: #000fcc;
 	text-decoration: none;
 	padding-left: 30px;
 }
 
-#ownpage a:hover
+#ownpage a:hover, #future a:hover
 {
 	text-decoration: underline;
 	font-style: italic;
@@ -90,7 +90,14 @@ a:hover
 	font-style: italic;
 }
 
-#ownpage hr
+#future table
+{
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#ownpage hr, #future hr
 {
 	width: 50%;
 }
@@ -125,7 +132,7 @@ a:hover
 	margin-right: auto;
 }
 
-#edit input[type=text]
+#edit input[type=text], #future input[type=text]
 {
 	width: 250px;
 }
