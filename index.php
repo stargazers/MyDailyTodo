@@ -138,7 +138,8 @@
 		$prev = date( 'Y-m-d', strtotime( "-1 day", strtotime( $day ) ) );
 
 		echo '<div id="ownpage">';
-		echo '<h2>Tasks for day ' . $tmp . '</h1>';
+		echo '<h2>Tasks for ' . date( 'l', strtotime( $day ) ) 
+			. ' ' . $tmp . '</h1>';
 
 		// If there is no tasks to given date
 		if(! show_tasks( $day ) )

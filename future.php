@@ -100,9 +100,9 @@
 			{
 				$i++;
 				echo '<tr>';
-				echo '<td>' . $i . '</td>';
-				echo '<td>' . $line . '</td>';
-				echo '<td width="10%">';
+				echo '<td valign="top">' . $i . '</td>';
+				echo '<td valign="top">' . $line . '</td>';
+				echo '<td width="10%" valign="top">';
 				echo '<a href="future.php?action=delete&id=' 
 					. $i . '">Delete</a></td>';
 				echo '</tr>';
