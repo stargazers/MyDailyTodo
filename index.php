@@ -138,8 +138,15 @@
 		$prev = date( 'Y-m-d', strtotime( "-1 day", strtotime( $day ) ) );
 
 		echo '<div id="ownpage">';
-		echo '<h2>Tasks for ' . date( 'l', strtotime( $day ) ) 
-			. ' ' . $tmp . '</h1>';
+		echo '<h2>';
+		echo '<a href="index.php?day=' . $prev 
+			. '">&lt;&lt;&nbsp;</a>';
+
+		echo '&nbsp;&nbsp;' . date( 'l', strtotime( $day ) ) 
+			. ' ' . $tmp;
+
+		echo '<a href="index.php?day=' . $next . '">&gt;&gt;</a>';
+		echo '</h2>';
 
 		// If there is no tasks to given date
 		if(! show_tasks( $day ) )
@@ -147,17 +154,16 @@
 
 		echo '<hr>';
 
-		echo '<a href="index.php?day=' . $prev 
-			. '">&lt;&lt; Previous day</a>';
+		echo '<a href="future.php?day=' . $day . '">Long term todos</a>';
 
 		// We can edit only tasks what will be today or in the future.
 		// Statuses can still be changed.
 		if( strtotime( $day ) >= strtotime( date( 'Y-m-d' ) ) )
 			echo '<a href="edit.php?day=' . $day . '">Modify tasks</a>';
 
-		echo '<a href="future.php?day=' . $day . '">Long term todos</a>';
-		echo '<a href="index.php?day=' . $next . '">Next day &gt;&gt;</a>';
+		echo '<a href="settings.php">Settings</a>';
 		echo '<br /><br />';
+
 		echo '<a href="logout.php">Logout</a>';
 		echo '</div>';
 	}
