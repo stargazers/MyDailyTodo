@@ -63,6 +63,12 @@
 			$todo_file = 'users/' . $_SESSION['username'] 
 				. '/future_todo.txt';
 
+			if(! file_exists( 'users/' . $_SESSION['username'] ) )
+			{
+				if(! mkdir( 'users/' . $_SESSION['username'], 0755 ) )
+					echo 'Failed to create new folder!';
+			}
+
 			// Try to open todo-file for writing.
 			$fh = fopen( $todo_file, 'w' );
 
