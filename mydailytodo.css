@@ -90,7 +90,7 @@ a:hover
 	font-style: italic;
 }
 
-#future table, #settings table
+#future table, #settings table, #future_log table
 {
 	width: 50%;
 	margin-left: auto;

@@ -47,8 +47,33 @@
 		{
 			$i++;
 
+			// Write all lines back to file except the item
+			// what we wanted to remove.
 			if( $i != $id )
+			{
 				fwrite( $fh, $line . "\n" );
+			}
+
+			// When we delete long term todo, we write it to
+			// future_log.txt file, so we can later see what 
+			// long term todos we have achieved :)
+			else
+			{
+				$future_log = @fopen( 'users/' . $_SESSION['username']
+					. '/future_log.txt', 'a+' );
+
+				if(! $future_log )
+				{
+					echo 'Can\'t save finished long term todos to file.';
+					continue;
+				}
+
+				// Write todo and date when we removed it.
+				fwrite( $future_log, $line . '|' 
+					. date( 'Y-m-d' ) . "\n" );
+
+				fclose( $future_log );
+			}
 		}
 
 		fclose( $fh );
@@ -131,6 +156,7 @@
 
 		echo '<br /><br /><hr />';
 		echo '<a href="future.php?action=edit">Modify TODOs</a>';
+		echo '<a href="future.php?action=show_finished">Show finished</a>';
 		echo '<a href="index.php">Back to main page</a>';
 		echo '<br /><br />';
 		echo '<a href="logout.php">Logout</a>';
@@ -189,6 +215,46 @@
 		echo '</div>';
 	}
 
+	/*
+		Show finished Long Term TODO's.
+	*/
+	function show_finished()
+	{
+		echo '<div id="future_log">';
+		$todo_file = 'users/' . $_SESSION['username'] . '/future_log.txt';
+
+		if(! file_exists( $todo_file ) )
+		{
+			echo '<br />';
+			echo 'There is no finished TODO\'s.<br /><br />';
+			echo '<a href="future.php?action=list">Back to list</a>';
+			echo '</div>';
+			return;
+		}
+
+		$data = file( $todo_file, FILE_IGNORE_NEW_LINES );
+
+		echo '<h3>Finished long term todos</h3>';
+		echo '<table>';
+		foreach( $data as $row )
+		{
+			$tmp = explode( '|', $row );
+			echo '<tr>';
+			echo '<td>';
+			echo $tmp[0];
+			echo '</td>';
+
+			echo '<td>';
+			echo $tmp[1];
+			echo '</td>';
+			echo '</tr>';
+		}
+		echo '</table>';
+		echo '<br />';
+		echo '<a href="future.php?action=list">Back to list</a>';
+		echo '</div>';
+	}
+
 	function main()
 	{
 		if( isset( $_GET['action'] ) )
@@ -214,6 +280,10 @@
 				delete_todo( $_GET['id']  );
 				list_todos();
 			}
+		}
+		else if( $action == 'show_finished' )
+		{
+			show_finished();
 		}
 
 		create_html_end();
