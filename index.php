@@ -23,6 +23,13 @@
 
 	function check_login_from_file( $username, $password )
 	{
+		// Username must be other than empty.
+		if( trim( $username ) == '' )
+		{
+			$_SESSION['errorMsg'] = 'Username cannot be empty!';
+			return false;
+		}
+
 		$userfile = 'users/' . $username . '.txt';
 
 		// No user file = Not registered user
