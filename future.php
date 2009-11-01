@@ -21,7 +21,82 @@
 	session_start();
 	require 'general_functions.php';
 
+	// Get the title of the TODO by ID.
+	function get_todo_name( $id )
+	{
+		$todo_file = 'users/' . $_SESSION['username'] 
+			. '/future_todo.txt';
+
+		// Make sure that todo file exists at all.
+		if(! file_exists( $todo_file ) )
+			return false;
+
+		$data = file( $todo_file, FILE_IGNORE_NEW_LINES );
+		$i = 0;
+
+		foreach( $data as $line )
+		{
+			$i++;
+
+			if( $i == $id )
+				return $line;
+		}
+
+		return 'Not found, do not edit ID manually.';
+	}
+
+	// This will be called when user press 'Delete' link
 	function delete_todo( $id )
+	{
+		if(! isset( $_GET['confirm_sent'] ) )
+		{
+			$name = get_todo_name( $id );
+			echo '<h2>Confirm delete</h2>';
+			echo 'Are you sure that you want to delete '
+				. 'selected Future TODO "' . $name . '"?<br /><br />';
+
+			// Link what will remove item.
+			echo '<a href="future.php?action=delete&id=' . $id 
+				. '&confirm_sent=yes">';
+			echo 'Yes</a> / ';
+			echo '<a href="future.php"> No</a>';
+		}
+		else
+		{
+			$todo_file = 'users/' . $_SESSION['username'] 
+				. '/future_todo.txt';
+
+			// Make sure that todo file exists at all.
+			if(! file_exists( $todo_file ) )
+				return false;
+
+			$data = file( $todo_file, FILE_IGNORE_NEW_LINES );
+			$i = 0;
+
+			// We rewrite the whole file, so open it for writing.
+			$fh = fopen( $todo_file, 'w' );
+
+			// We should create better handler here some day.
+			if(! $fh )
+				return false;
+
+			foreach( $data as $line )
+			{
+				$i++;
+
+				if( $i != $id )
+					fwrite( $fh, $line . "\n" );
+			}
+
+			fclose( $fh );
+
+			// After delete, just show all todos.
+			list_todos();
+		}
+	}
+
+	// This will be called when some long term todo is finished.
+	function finish_todo( $id )
 	{
 		$todo_file = 'users/' . $_SESSION['username'] 
 			. '/future_todo.txt';
@@ -125,7 +200,7 @@
 		{
 			$data = file( $todo_file, FILE_IGNORE_NEW_LINES );
 
-			echo '<table>';
+			echo '<table id="future_todos">';
 			$i = 0;
 			foreach( $data as $line )
 			{
@@ -133,6 +208,9 @@
 				echo '<tr>';
 				echo '<td valign="top">' . $i . '</td>';
 				echo '<td valign="top">' . $line . '</td>';
+				echo '<td width="10%" valign="top">';
+				echo '<a href="future.php?action=finished&id=' 
+					. $i . '">Finished</a></td>';
 				echo '<td width="10%" valign="top">';
 				echo '<a href="future.php?action=delete&id=' 
 					. $i . '">Delete</a></td>';
@@ -265,22 +343,32 @@
 		create_html_start();
 		check_post_values();
 
+		// Just list todos
 		if( $action == 'list' )
 		{
 			list_todos();
 		}
+		// When we want to Modify todos
 		else if( $action == 'edit' )
 		{
 			show_edit();
 		}
+		// When user press 'Delete' link
 		else if( $action == 'delete' )
 		{
 			if( isset( $_GET['id'] ) )
+				delete_todo( $_GET['id']);
+		}
+		// When user press 'Finished' link
+		else if( $action == 'finished' )
+		{
+			if( isset( $_GET['id'] ) )
 			{
-				delete_todo( $_GET['id']  );
+				finish_todo( $_GET['id']  );
 				list_todos();
 			}
 		}
+		// When we want to list completed todos.
 		else if( $action == 'show_finished' )
 		{
 			show_finished();

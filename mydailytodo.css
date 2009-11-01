@@ -161,7 +161,9 @@ a:hover
 	font-size: 70%;
 }
 
-#logout
+/* Long term todos list, Finished and Delete -links */
+#future_todos a:link, #future_todos a:visited
 {
-
+	padding: 5px;
 }
+
