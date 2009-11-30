@@ -18,7 +18,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 	session_start();
-	unset( $_SESSION['username'] );
+	unset( $_SESSION['todo_username'] );
 	header( 'Location: index.php' );
 
 ?>

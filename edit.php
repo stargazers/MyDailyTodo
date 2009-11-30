@@ -37,7 +37,7 @@
 	function create_inputs_from_file( $todo_file )
 	{
 		/*
-		$todo_file = 'users/' . $_SESSION['username'] . '/'
+		$todo_file = 'users/' . $_SESSION['todo_username'] . '/'
 			. date( 'Y-m-d' ) . '.txt';
 		*/
 
@@ -62,7 +62,7 @@
 		$tmp = explode( '-', $day );
 		$tmp = $tmp[2] . '.' . $tmp[1] . '.' . $tmp[0];
 
-		$todo_file = 'users/' . $_SESSION['username'] . '/'
+		$todo_file = 'users/' . $_SESSION['todo_username'] . '/'
 			. $day . '.txt';
 
 		echo '<div id="edit">';
@@ -94,7 +94,7 @@
 
 	function check_user_folder()
 	{
-		$path = 'users/' . $_SESSION['username'];
+		$path = 'users/' . $_SESSION['todo_username'];
 
 		// Is there folder for username at all? If not, create it.
 		if(! file_exists( $path ) )
@@ -128,7 +128,7 @@
 			$day = $_GET['day'];
 
 		// File where we save modifications.
-		$path = 'users/' . $_SESSION['username'];
+		$path = 'users/' . $_SESSION['todo_username'];
 		$todo_file = $path . '/' . $day . '.txt';
 
 		// If file already exists, then read the data to array.

@@ -30,7 +30,7 @@
 			if( $_POST['password'] != $_POST['password_again'] )
 				return 1;
 
-			$user_file = 'users/' . $_SESSION['username'] . '.txt';
+			$user_file = 'users/' . $_SESSION['todo_username'] . '.txt';
 
 			$fh = @fopen( $user_file, 'w' );
 

@@ -58,7 +58,7 @@
 				// Correct username found!
 				if( $tmp[1] == sha1( $password ) )
 				{
-					$_SESSION['username'] = $username;
+					$_SESSION['todo_username'] = $username;
 					return true;
 				}
 
@@ -70,17 +70,17 @@
 
 	function check_post_values()
 	{
-		if( isset( $_POST['username'] ) 
+		if( isset( $_POST['todo_username'] ) 
 			&& isset( $_POST['password'] ) )
 		{
-			check_login_from_file( $_POST['username'], 
+			check_login_from_file( $_POST['todo_username'], 
 				$_POST['password'] );
 		}
 	}
 
 	function show_tasks( $day )
 	{
-		$todo_file = 'users/' . $_SESSION['username'] . '/'
+		$todo_file = 'users/' . $_SESSION['todo_username'] . '/'
 			. $day . '.txt';
 
 		// Check if there is daily file
@@ -184,7 +184,7 @@
 		echo '<table>';
 		echo '<tr>';
 		echo '<td>Username</td>';
-		echo '<td><input type="text" name="username"></td>';
+		echo '<td><input type="text" name="todo_username"></td>';
 		echo '</tr>';
 		echo '<tr>';
 		echo '<td>Password</td>';
@@ -206,7 +206,7 @@
 
 	function user_logged()
 	{
-		if( isset( $_SESSION['username'] ) )
+		if( isset( $_SESSION['todo_username'] ) )
 			return true;
 
 		return false;

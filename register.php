@@ -23,23 +23,23 @@
 
 	function check_post_values()
 	{
-		if(! isset( $_POST['username'] ) )
+		if(! isset( $_POST['todo_username'] ) )
 			return false;
 
 		// Remove dots and / characters so the user cannot try 
 		// to set username to ../../pwnd or similar.
-		$_POST['username'] = preg_replace( '/\./', '', $_POST['username'] );
-		$_POST['username'] = preg_replace( '/\//', '', $_POST['username'] );
+		$_POST['todo_username'] = preg_replace( '/\./', '', $_POST['todo_username'] );
+		$_POST['todo_username'] = preg_replace( '/\//', '', $_POST['todo_username'] );
 
 		// Is username empty?
-		if( isset( $_POST['username'] ) && empty( $_POST['username'] ) )
+		if( isset( $_POST['todo_username'] ) && empty( $_POST['todo_username'] ) )
 		{
 			$_SESSION['errorMsg'] = 'Username is not set.';
 			return false;
 		}
 
 		// If users exists
-		if( file_exists( 'users/' . $_POST['username'] . '.txt' ) )
+		if( file_exists( 'users/' . $_POST['todo_username'] . '.txt' ) )
 		{
 			$_SESSION['errorMsg'] = 'Username is already used.';
 			return false;
@@ -66,7 +66,7 @@
 			}
 		}
 
-		$fh = @fopen( 'users/' . $_POST['username'] . '.txt', 'w' );
+		$fh = @fopen( 'users/' . $_POST['todo_username'] . '.txt', 'w' );
 		
 		if(! $fh )
 		{
@@ -77,7 +77,7 @@
 		fwrite( $fh, 'password=' . sha1( $_POST['password'] ) . "\n" );
 		fclose( $fh );
 
-		$_SESSION['errorMsg'] = 'User ' . $_POST['username'] 
+		$_SESSION['errorMsg'] = 'User ' . $_POST['todo_username'] 
 			. ' is now registered!';
 
 		return true;
@@ -91,7 +91,7 @@
 		echo '<table>';
 		echo '<tr>';
 		echo '<td>Username</td>';
-		echo '<td><input type="text" name="username"></td>';
+		echo '<td><input type="text" name="todo_username"></td>';
 		echo '</tr>';
 		echo '<tr>';
 		echo '<td>Password</td>';

@@ -28,7 +28,7 @@
 		$day = date( 'Y-m-d' );
 
 	// User daily TODO-file.
-	$todo_file = 'users/' . $_SESSION['username'] . '/'
+	$todo_file = 'users/' . $_SESSION['todo_username'] . '/'
 		. $day . '.txt';
 
 	// Check that file exists (as it should!) and read it to array.
