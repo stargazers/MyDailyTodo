@@ -24,7 +24,7 @@
 	// Get the title of the TODO by ID.
 	function get_todo_name( $id )
 	{
-		$todo_file = 'users/' . $_SESSION['username'] 
+		$todo_file = 'users/' . $_SESSION['todo_username'] 
 			. '/future_todo.txt';
 
 		// Make sure that todo file exists at all.
@@ -63,7 +63,7 @@
 		}
 		else
 		{
-			$todo_file = 'users/' . $_SESSION['username'] 
+			$todo_file = 'users/' . $_SESSION['todo_username'] 
 				. '/future_todo.txt';
 
 			// Make sure that todo file exists at all.
@@ -98,7 +98,7 @@
 	// This will be called when some long term todo is finished.
 	function finish_todo( $id )
 	{
-		$todo_file = 'users/' . $_SESSION['username'] 
+		$todo_file = 'users/' . $_SESSION['todo_username'] 
 			. '/future_todo.txt';
 
 		// Make sure that todo file exists at all.
@@ -134,7 +134,7 @@
 			// long term todos we have achieved :)
 			else
 			{
-				$future_log = @fopen( 'users/' . $_SESSION['username']
+				$future_log = @fopen( 'users/' . $_SESSION['todo_username']
 					. '/future_log.txt', 'a+' );
 
 				if(! $future_log )
@@ -160,12 +160,12 @@
 		// Is there POST-data where are new TODO's?
 		if( isset( $_POST['todo'] ) )
 		{
-			$todo_file = 'users/' . $_SESSION['username'] 
+			$todo_file = 'users/' . $_SESSION['todo_username'] 
 				. '/future_todo.txt';
 
-			if(! file_exists( 'users/' . $_SESSION['username'] ) )
+			if(! file_exists( 'users/' . $_SESSION['todo_username'] ) )
 			{
-				if(! mkdir( 'users/' . $_SESSION['username'], 0755 ) )
+				if(! mkdir( 'users/' . $_SESSION['todo_username'], 0755 ) )
 					echo 'Failed to create new folder!';
 			}
 
@@ -191,7 +191,7 @@
 
 	function show_future_todos()
 	{
-		$todo_file = 'users/' . $_SESSION['username'] 
+		$todo_file = 'users/' . $_SESSION['todo_username'] 
 			. '/future_todo.txt';
 
 		// If there is TODO-file, then list all
@@ -246,7 +246,7 @@
 		echo '<div id="future">';
 		echo '<h2>Edit things what I will make some day</h2>';
 
-		$todo_file = 'users/' . $_SESSION['username'] 
+		$todo_file = 'users/' . $_SESSION['todo_username'] 
 			. '/future_todo.txt';
 
 		echo '<form action="future.php" method="post">';
@@ -299,7 +299,7 @@
 	function show_finished()
 	{
 		echo '<div id="future_log">';
-		$todo_file = 'users/' . $_SESSION['username'] . '/future_log.txt';
+		$todo_file = 'users/' . $_SESSION['todo_username'] . '/future_log.txt';
 
 		if(! file_exists( $todo_file ) )
 		{
